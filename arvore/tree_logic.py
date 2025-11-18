@@ -1,32 +1,55 @@
-
-# tree_logic.py — você edita APENAS este arquivo nesta atividade.
+# Ajuste final - Cristiano
+# tree_logic.py
 
 class Node:
     def __init__(self, question, yes=None, no=None):
-        """
-        Se 'yes' e 'no' forem None, este nó é uma FOLHA e 'question' guarda a decisão final (string).
-        Caso contrário, 'question' é o texto da pergunta e 'yes'/'no' são seus filhos.
-        """
         self.question = question
         self.yes = yes
         self.no = no
 
-def is_leaf(node):
-    return node is not None and node.yes is None and node.no is None
+    def is_leaf(self):
+        return self.yes is None and self.no is None
+
 
 def navigate_tree(node, answers):
     """
-    Percorre a árvore a partir de 'node' seguindo a sequência de respostas (lista de strings).
+    Percorre a árvore a partir de 'node' seguindo a sequência de respostas.
     Cada resposta deve ser 'sim' ou 'não' (aceite 'nao' como 'não').
-    Retorna a decisão final (string) quando alcançar uma folha.
-    Se a sequência terminar antes de chegar a uma folha, levante ValueError com dica.
-    Se alguma resposta for inválida, levante ValueError com mensagem clara.
-    >>> # Exemplo (não-executável aqui): navigate_tree(root, ["sim", "não"]) -> "É um pardal/pássaro diurno"
     """
-    # TODO: implemente aqui. Sugestão:
-    # - Enquanto o nó atual não for folha:
-    #     - Se não houver mais respostas, levante ValueError("Faltam respostas para concluir a decisão.")
-    #     - Pegue a próxima resposta, normalize para minúsculas, trate 'nao' como 'não'.
-    #     - Se "sim": vá para node.yes; se "não": vá para node.no; senão levante ValueError("Resposta inválida: ...")
-    # - Ao chegar numa folha, retorne node.question (a decisão final).
-    raise NotImplementedError("Implemente a função navigate_tree.")
+
+    current = node
+    index = 0  # para saber qual resposta estamos lendo
+
+    while not current.is_leaf():
+
+        # Se acabaram as respostas antes de chegar numa folha
+        if index >= len(answers):
+            raise ValueError("Faltam respostas para concluir a decisão.")
+
+        # Normalizar a resposta
+        resp = answers[index].strip().lower()
+
+        # Tratar variações de "não"
+        if resp == "nao":
+            resp = "não"
+
+        # Avançar pela árvore
+        if resp == "sim":
+            current = current.yes
+        elif resp == "não":
+            current = current.no
+        else:
+            raise ValueError(
+                f"Resposta inválida: '{answers[index]}'. Use 'sim' ou 'não'."
+            )
+
+        index += 1
+
+        # Caso o próximo nó seja None (árvore malformada)
+        if current is None:
+            raise ValueError(
+                "A árvore de decisão está incompleta para essa sequência de respostas."
+            )
+
+    # Chegou numa folha → decisão final
+    return current.question
