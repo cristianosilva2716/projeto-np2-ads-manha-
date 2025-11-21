@@ -1,4 +1,4 @@
-# Ajuste final - Cristiano
+# Ajuste final 
 # tree_logic.py
 
 class Node:
@@ -53,3 +53,10 @@ def navigate_tree(node, answers):
 
     # Chegou numa folha → decisão final
     return current.question
+
+# Cristiano Silva Lima 
+# Pedro Henrique Araruna da Silva
+# Kaegila Baliza de Jesus
+# Wesley Alves de Barro Teles
+# Marya Eduarda Pereira Rodrigues
+# Andrew Durães da Costa
