@@ -27,3 +27,10 @@ def connected(graph, a, b):
 
     # Se BFS terminar sem encontrar b
     return False
+
+# Cristiano Silva Lima 
+# Pedro Henrique Araruna da Silva
+# Kaegila Baliza de Jesus
+# Wesley Alves de Barro Teles
+# Marya Eduarda Pereira Rodrigues
+# Andrew Durães da Costa
